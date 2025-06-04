@@ -83,11 +83,19 @@
       <button>Start Timer</button>
       <button>End Timer</button>
       <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button id="trigger-global-error">Trigger a Global Error</button>
       <button id="try-catch-demo">Try/Catch Demo</button>
       <button id="custom-error-demo">Custom Error Demo</button>
     </section>
   </main>
+
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "91e330df4e4c4effa154d82698736cb3"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
 
   <script>
     // Sample data to log, table, dir, etc.
@@ -226,7 +234,20 @@
       // You could e.g. call undefinedFunction() here to trigger a global error.
     });
 
-  document.getElementById('try-catch-demo').addEventListener('click', () => {
+      // Catch any uncaught errors and log them
+    window.onerror = function (message, source, line, column, error) {
+      console.log('Global error caught:', message);
+      return true; // prevent the default browser error handler
+    };
+
+    // When clicked, call a nonexistent function to force a ReferenceError
+    document
+      .getElementById('trigger-global-error')
+      .addEventListener('click', () => {
+        nonexistentFunction();
+      });
+
+    document.getElementById('try-catch-demo').addEventListener('click', () => {
     try {
       // Attempt to read and parse the inputs
       const a = parseFloat(document.getElementById('first-num').value);
