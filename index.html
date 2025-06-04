@@ -85,6 +85,7 @@
       <button>Console Trace</button>
       <button>Trigger a Global Error</button>
       <button id="try-catch-demo">Try/Catch Demo</button>
+      <button id="custom-error-demo">Custom Error Demo</button>
     </section>
   </main>
 
@@ -224,9 +225,7 @@
       // Intentionally left blank: 
       // You could e.g. call undefinedFunction() here to trigger a global error.
     });
-  </script>
 
-  <script>
   document.getElementById('try-catch-demo').addEventListener('click', () => {
     try {
       // Attempt to read and parse the inputs
@@ -253,6 +252,41 @@
       console.log('Try/Catch block complete');
     }
   });
+
+    // Define a custom error type
+  class CalculatorError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = 'CalculatorError';
+    }
+  }
+
+  document.getElementById('custom-error-demo').addEventListener('click', () => {
+    try {
+      const a = parseFloat(document.getElementById('first-num').value);
+      const b = parseFloat(document.getElementById('second-num').value);
+      const op = document.getElementById('operator').value;
+
+      if (isNaN(a) || isNaN(b)) {
+        throw new CalculatorError('Inputs must be numbers');
+      }
+      if (op === '/' && b === 0) {
+        throw new CalculatorError('Cannot divide by zero');
+      }
+
+      const result = eval(`${a} ${op} ${b}`);
+      console.log('Result:', result);
+    } catch (err) {
+      if (err instanceof CalculatorError) {
+        console.error(`CUSTOM ERROR! ${err.name}: ${err.message}`);
+      } else {
+        console.error(err);
+      }
+    } finally {
+      console.log('Operation complete');
+    }
+  });
+
 </script>
 
 
