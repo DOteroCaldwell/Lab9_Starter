@@ -84,6 +84,7 @@
       <button>End Timer</button>
       <button>Console Trace</button>
       <button>Trigger a Global Error</button>
+      <button id="try-catch-demo">Try/Catch Demo</button>
     </section>
   </main>
 
@@ -130,12 +131,12 @@
 
     // 1. Console Log Demo
     logBtn.addEventListener('click', () => {
-      console.log('👋 Hello from Console Log!', sampleObject);
+      console.log('Hello from Console Log!', sampleObject);
     });
 
     // 2. Console Error Demo
     errorBtn.addEventListener('click', () => {
-      console.error('❌ This is a console.error message', { code: 500, message: 'Server Error' });
+      console.error('This is a console.error message', { code: 500, message: 'Server Error' });
     });
 
     // 3. Console Count Demo
@@ -146,14 +147,14 @@
 
     // 4. Console Warn Demo
     warnBtn.addEventListener('click', () => {
-      console.warn('⚠️ This is a console.warn example');
+      console.warn('This is a console.warn example');
     });
 
     // 5. Console Assert Demo
     // Fails the assertion on purpose to show output in red
     assertBtn.addEventListener('click', () => {
       const condition = false;
-      console.assert(condition, '🚫 Assertion failed: condition is false');
+      console.assert(condition, 'Assertion failed: condition is false');
     });
 
     // 6. Console Clear Demo
@@ -224,5 +225,41 @@
       // You could e.g. call undefinedFunction() here to trigger a global error.
     });
   </script>
+
+  <script>
+  document.getElementById('try-catch-demo').addEventListener('click', () => {
+    try {
+      // Attempt to read and parse the inputs
+      const a = parseFloat(document.getElementById('first-num').value);
+      const b = parseFloat(document.getElementById('second-num').value);
+
+      // If either field isn’t a valid number, throw an error
+      if (isNaN(a) || isNaN(b)) {
+        throw new Error('Both fields must be valid numbers');
+      }
+
+      // If operator is “/” and b is zero, throw
+      const op = document.getElementById('operator').value;
+      if (op === '/' && b === 0) {
+        throw new Error('Division by zero is not allowed');
+      }
+
+      // Otherwise, perform the calculation
+      const result = eval(`${a} ${op} ${b}`);
+      console.log('Calculation succeeded:', result);
+    } catch (err) {
+      console.error('error', err.message);
+    } finally {
+      console.log('Try/Catch block complete');
+    }
+  });
+</script>
+
+
+
+
+
+
+
 </body>
 </html>
