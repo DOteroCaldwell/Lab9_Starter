@@ -7,6 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "91e330df4e4c4effa154d82698736cb3"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+
   <style>
     button {
       margin: 3px;
@@ -88,14 +96,6 @@
       <button id="custom-error-demo">Custom Error Demo</button>
     </section>
   </main>
-
-  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script>
-    window.TrackJS && TrackJS.install({ 
-      token: "91e330df4e4c4effa154d82698736cb3"
-      // for more configuration options, see https://docs.trackjs.com
-    });
-  </script>
 
   <script>
     // Sample data to log, table, dir, etc.
